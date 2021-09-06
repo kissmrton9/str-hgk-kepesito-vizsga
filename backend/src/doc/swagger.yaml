@@ -141,6 +141,87 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /school:
+    get:
+      description: Returns a list of schools
+      responses:
+        '200':
+          description: List of schools returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/School'
+    post:
+      description: Creates a new School
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+      responses:
+        '201':
+          description: School has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+  /school/{id}:
+    get:
+      description: Get a School
+      parameters:
+        - in: path
+          name: _id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns a School
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/School'
+    put:
+      description: Updates a School
+      parameters:
+        - in: path
+          name: _id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+      responses:
+        '200':
+          description: School has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+    delete:
+      description: Removes a School
+      parameters:
+        - in: path
+          name: _id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: School has been deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
 components:
   schemas:
     Student:
@@ -157,6 +238,33 @@ components:
         email:
           type: string
         classroom:
+          type: string
+    School:
+      type: object
+      required:
+        - name
+        - city
+        - street
+        - zipcode
+      properties:
+        name:
+          type: string
+        city:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: number
+        classrooms:
+          type: array
+          items:
+            type: string
+    Classroom:
+      type: object
+      required:
+        - name
+      properties:
+        name:
           type: string
     Error:
       type: object
