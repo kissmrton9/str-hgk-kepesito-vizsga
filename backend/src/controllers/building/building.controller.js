@@ -10,9 +10,36 @@
  */
 
 const httpError = require('http-errors');
+const BuildingModel = require('../../models/building.model');
+const ClassroomModel = require('../../models/classroom.model');
+
+exports.updateBuilding = (req, res, next) => {
+    const { buildingId, className} = req.body;
+    if (buildingId === undefined || className === undefined) {
+        return next(
+            new createError.BadRequest('Missing field')
+        );
+    }
+
+    return service.update(buildingId, className)
+        .then(entity => {
+            res.json(entity);
+        })
+        .catch(err => {
+            console.error(err)
+            return next(new createError.InternalServerError('Could not update building'));
+        });
+};
 
 
-exports.updateBuilding = (req, res, next) => {}
 
 
-exports.getAllBuildingWithClassrooms = () => {};
+exports.getAllBuildingWithClassrooms = (req, res, next) => {
+    return service.getAll()
+        .then(list => {
+            res.json(list);
+        }).catch(err => {
+            console.error(err);
+            return new createError.InternalServerError('List could nost send')
+        })
+};

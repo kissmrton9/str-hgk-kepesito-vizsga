@@ -6,7 +6,17 @@
  *
  * A @getAll metódus adja vissza a populált teljes "building" listát
  */
+const { findByIdAndUpdate } = require('../../models/building.model');
+const BuildingModel = require('../../models/building.model');
+const ClassroomModel = require('../../models/classroom.model');
 
-exports.update = (buildingId, className) => {};
 
-exports.getAll = () => {}
+exports.update = async (buildingId, className) => {
+    const classroom = new ClassroomModel({name: className});
+    await classroom.save();
+    const id = await ClassroomModel.findOne({name: className}).lean()['_id'];
+    console.log('id:',id);
+    BuildingModel.findByIdAndUpdate(buildingId,{$push: {classrooms: id}})
+};
+
+exports.getAll = () => BuildingModel.find().populate(classrooms);
