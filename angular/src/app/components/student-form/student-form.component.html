@@ -1,1 +1,32 @@
+/<!--
 <p>student-form works!</p>
+export interface Student {
+    _id?:string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    classroom: Classroom;
+  }
+-->  
+<div class="row">
+    <div class="col-4 offset-4 mt-5">
+      <form #form="ngForm" id="studentForm" (ngSubmit)="saveStudent()">
+        <div class="form-group">
+            <label>FirstName:</label>
+            <input class="form-control" name="firstName" [(ngModel)]="student.firstName" type="text" required>
+          </div>
+          <div class="form-group">
+            <label>LastName:</label>
+            <input class="form-control" name="lastName" [(ngModel)]="student.lastName" type="text" required>
+          </div>
+            <div class="form-group">
+          <label>Email:</label>
+          <input class="form-control" name="email" [(ngModel)]="student.email" type="email" required>
+        </div>
+        <button type="submit" [disabled]="!form.valid" class="btn btn-primary col-12 mt-3">
+          <span>Save changes</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  
