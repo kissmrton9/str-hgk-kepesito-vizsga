@@ -51,7 +51,7 @@ export class StudentFormComponent implements OnInit {
 
   saveStudent(){
     this.service.update(this.student,this.id).pipe(take(1)).subscribe({
-      next: (student) => this.router.navigate(['/','student']),
+      next: (student) => this.router.navigate(['/','student-list']),
       error: (e:any) => console.log(e.message),
     });
   }
