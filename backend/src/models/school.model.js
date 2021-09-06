@@ -35,7 +35,7 @@ const SchoolSchema = mongoose.Schema({
     },
     classrooms: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'classrooms'
+        ref: 'Classroom'
     }]
 }, {
     timeStamps: true
